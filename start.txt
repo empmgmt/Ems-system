@@ -1,0 +1,10 @@
+node userSeed.js
+{change the name and password}
+
+cd frontend{
+npm run dev
+}
+
+cd server {
+npm start 
+}
