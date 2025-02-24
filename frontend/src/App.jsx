@@ -27,6 +27,9 @@ import ViewLeave from "../EmployeeDashboard/leave/ViewLeave";
 import EmployeeLeaveHistory from "./components/employee/EmployeeLeaveHistory";
 import Attendance from "../EmployeeDashboard/Attendance/attendance";
 import AttendanceReport from "../EmployeeDashboard/Attendance/AttendanceReport";
+import AdminChatBox from "./components/AdminChatBox";
+import EmpChat from "../EmployeeDashboard/EmpChat";
+
 
 
 
@@ -66,6 +69,7 @@ function App() {
           <Route path="employees/:id/leave-history" element={<EmployeeLeaveHistory />} />
           <Route path="attendance" element={<Attendance />} />
           <Route path="attendancereport" element={<AttendanceReport />} />
+          <Route path="adminchatbox" element={<AdminChatBox />} />
         </Route>
 
         {/* Employee Dashboard Routes */}
@@ -87,7 +91,7 @@ function App() {
           <Route path="profile/:id" element={<View />} />
           <Route path="add-leave" element={<AddLeave />} />
           <Route path="view-leave/:id" element={<ViewLeave />} /> {/* Added ViewLeave route */}
-         
+          <Route path="employee-chatbox" element={<EmpChat />} />
         </Route>
 
         {/* Unauthorized Route (Fallback) */}

@@ -118,8 +118,11 @@ export const styles = {
   },
   radioOptions: {
     display: 'flex',
-    justifyContent: 'space-evenly', 
-    width: '100%', 
-    gap: '50px',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    gap: '20px',
+    width: '100%',
+    marginBottom: '10px', // Reduce space below
+    marginTop: '-5px', // Move up slightly
   },
 };

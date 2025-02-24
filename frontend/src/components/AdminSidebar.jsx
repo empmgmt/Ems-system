@@ -11,7 +11,7 @@ import {
   
 } from 'react-icons/fa';
 import { IoSettingsSharp } from "react-icons/io5";
-
+import { LuMessageSquareMore } from "react-icons/lu";
 
 const AdminSidebar = () => {
   const activeClassName = "bg-teal-500 text-white";
@@ -119,6 +119,18 @@ const AdminSidebar = () => {
         >
           <IoSettingsSharp />
           <span>Settings</span>
+        </NavLink>
+
+        <NavLink
+          to="/admin-dashboard/adminchatbox"
+          className={({ isActive }) =>
+            `flex items-center space-x-4 block py-2.5 px-4 rounded ${
+              isActive ? activeClassName : ""
+            }`
+          }
+        >
+          <LuMessageSquareMore />
+          <span>Chat box</span>
         </NavLink>
 
       </div>
