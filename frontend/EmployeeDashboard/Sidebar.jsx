@@ -5,21 +5,24 @@ import {
   FaTachometerAlt,
   FaUsers,
   FaMoneyBillWave,
-  
 } from "react-icons/fa";
 import { IoSettingsSharp } from "react-icons/io5";
-import { useAuth } from "../src/context/authContext";
 import { LuMessageSquareMore } from "react-icons/lu";
+import { useAuth } from "../src/context/authContext";
+
+
 const Sidebar = () => {
   const activeClassName = "bg-teal-500 text-white";
   const { user } = useAuth();
 
   return (
     <div className="bg-gray-800 text-white h-screen fixed left-0 top-0 bottom-0 space-y-2 w-64">
+      {/* Header */}
       <div className="bg-teal-600 h-12 flex items-center justify-center">
         <h3 className="text-2xl text-center font-bold">Employee Page</h3>
       </div>
 
+      {/* Navigation Links */}
       <div>
         <NavLink
           to="/employee-dashboard"
@@ -82,8 +85,9 @@ const Sidebar = () => {
           <span>Settings</span>
         </NavLink>
 
+        {/* Chatbox Link */}
         <NavLink
-          to="employee-chatbox"
+          to={`/employee-dashboard/chat/${user?._id}`}
           className={({ isActive }) =>
             `flex items-center space-x-4 block py-2.5 px-4 rounded ${
               isActive ? activeClassName : ""

@@ -56,6 +56,7 @@ const Leave = () => {
           setFilteredLeaves(data);
         } else {
           console.warn("No leave records found.");
+          setLeaves([]);
           setFilteredLeaves([]);
         }
       } catch (error) {
@@ -68,10 +69,7 @@ const Leave = () => {
     fetchLeaves();
   }, []);
 
-  const filterByStatus = (status) => {
-    setSelectedStatus(status);
-  };
-
+  // ✅ Filter logic
   useEffect(() => {
     let filtered = leaves;
 
@@ -88,8 +86,13 @@ const Leave = () => {
     setFilteredLeaves(filtered);
   }, [searchTerm, selectedStatus, leaves]);
 
-  // Function to export data to Excel
+  // ✅ Export data to Excel
   const exportToExcel = () => {
+    if (filteredLeaves.length === 0) {
+      alert("No data available to export.");
+      return;
+    }
+
     const dataForExport = filteredLeaves.map((leave) => ({
       "S No.": leave.sno,
       "Emp ID": leave.employeeId,
@@ -134,38 +137,17 @@ const Leave = () => {
 
         {/* Filter Buttons */}
         <div className="flex flex-wrap gap-2">
-          <button
-            className={`px-3 py-1 rounded-md ${
-              selectedStatus === "All" ? "bg-gray-800 text-white" : "bg-gray-400 text-black"
-            } hover:bg-gray-700`}
-            onClick={() => filterByStatus("All")}
-          >
-            All
-          </button>
-          <button
-            className={`px-3 py-1 rounded-md ${
-              selectedStatus === "Pending" ? "bg-teal-600 text-white" : "bg-gray-400 text-black"
-            } hover:bg-teal-700`}
-            onClick={() => filterByStatus("Pending")}
-          >
-            Pending
-          </button>
-          <button
-            className={`px-3 py-1 rounded-md ${
-              selectedStatus === "Approved" ? "bg-green-600 text-white" : "bg-gray-400 text-black"
-            } hover:bg-green-700`}
-            onClick={() => filterByStatus("Approved")}
-          >
-            Approved
-          </button>
-          <button
-            className={`px-3 py-1 rounded-md ${
-              selectedStatus === "Rejected" ? "bg-red-600 text-white" : "bg-gray-400 text-black"
-            } hover:bg-red-700`}
-            onClick={() => filterByStatus("Rejected")}
-          >
-            Rejected
-          </button>
+          {["All", "Pending", "Approved", "Rejected"].map((status) => (
+            <button
+              key={status}
+              className={`px-3 py-1 rounded-md ${
+                selectedStatus === status ? "bg-gray-800 text-white" : "bg-gray-400 text-black"
+              } hover:bg-gray-700`}
+              onClick={() => setSelectedStatus(status)}
+            >
+              {status}
+            </button>
+          ))}
         </div>
       </div>
 

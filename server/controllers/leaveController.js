@@ -11,7 +11,7 @@ const addLeave = async (req, res) => {
         }
 
         if (!mongoose.Types.ObjectId.isValid(employeeId)) {
-            return res.status(400).json({ success: false, error: "Invalid employeeId" });
+            return res.status(400).json({ success: false, error: "Invalid employee ID" });
         }
 
         const newLeave = new Leave({
@@ -70,7 +70,7 @@ const getLeaves = async (req, res) => {
     }
 };
 
-// ✅ Get all leave requests for a specific Employee (NEW FUNCTION)
+// ✅ Get all leave requests for a specific Employee
 const getEmployeeLeaves = async (req, res) => {
     try {
         const { id } = req.params;
@@ -106,7 +106,8 @@ const updateLeaveStatus = async (req, res) => {
             return res.status(400).json({ success: false, error: "Invalid leave ID" });
         }
 
-        const leave = await Leave.findByIdAndUpdate(id, { status }, { new: true });
+        const leave = await Leave.findByIdAndUpdate(id, { status, updatedAt: Date.now() }, { new: true });
+
         if (!leave) {
             return res.status(404).json({ success: false, error: "Leave not found" });
         }
@@ -130,7 +131,7 @@ const updateLeave = async (req, res) => {
 
         const updatedLeave = await Leave.findByIdAndUpdate(
             id,
-            { leaveType, startDate, endDate, reason, status },
+            { leaveType, startDate, endDate, reason, status, updatedAt: Date.now() },
             { new: true }
         );
 

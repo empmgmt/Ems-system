@@ -8,6 +8,7 @@ const AddLeave = () => {
     const [leave, setLeave] = useState({
         employeeId: user?._id || "", // Set employeeId from the authenticated user
         leaveType: "",
+        customLeaveType: "",
         startDate: "",
         endDate: "",
         reason: "",
@@ -28,12 +29,17 @@ const AddLeave = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log("Submitting Leave Request:", leave); // Debugging
+        const leaveData = {
+            ...leave,
+            leaveType: leave.leaveType === "Other" ? leave.customLeaveType : leave.leaveType,
+        };
+
+        console.log("Submitting Leave Request:", leaveData); // Debugging
 
         try {
             const response = await axios.post(
                 "http://localhost:5000/api/leave/add", // Ensure this matches your backend route
-                leave,
+                leaveData,
                 {
                     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
                 }
@@ -70,8 +76,25 @@ const AddLeave = () => {
                             <option value="Sick Leave">Sick Leave</option>
                             <option value="Casual Leave">Casual Leave</option>
                             <option value="Annual Leave">Annual Leave</option>
+                            <option value="Other">Other</option>
                         </select>
                     </div>
+
+                    {/* Custom Leave Type (Only shown if 'Other' is selected) */}
+                    {leave.leaveType === "Other" && (
+                        <div>
+                            <label className="block text-gray-700 font-medium">Custom Leave Type</label>
+                            <input
+                                type="text"
+                                name="customLeaveType"
+                                value={leave.customLeaveType}
+                                onChange={handleChange}
+                                className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                                placeholder="Enter custom leave type"
+                                required
+                            />
+                        </div>
+                    )}
 
                     {/* From Date */}
                     <div>

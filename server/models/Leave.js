@@ -9,7 +9,6 @@ const LeaveSchema = new Schema({
     },
     leaveType: {
         type: String,
-        enum: ["Sick Leave", "Casual Leave", "Annual Leave"],
         required: true,
     },
     startDate: { type: Date, required: true },
@@ -18,6 +17,12 @@ const LeaveSchema = new Schema({
     status: { type: String, enum: ["Pending", "Approved", "Rejected"], default: "Pending" },
     appliedAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
+});
+
+// Middleware to update `updatedAt` before saving
+LeaveSchema.pre("save", function (next) {
+    this.updatedAt = Date.now();
+    next();
 });
 
 const Leave = mongoose.model("Leave", LeaveSchema);

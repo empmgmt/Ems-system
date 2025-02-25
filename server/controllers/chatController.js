@@ -1,15 +1,9 @@
 import Chat from "../models/Chat.js";
 import { io } from "../index.js";
 
-// Validate sender
-const validateSender = (sender) => ["admin", "employee"].includes(sender);
-
-// Get messages for Admin or Employee
+// Get messages
 export const getMessages = async (req, res) => {
   try {
-    const { sender } = req.params;
-    if (!validateSender(sender)) return res.status(400).json({ error: "Invalid sender type" });
-
     const messages = await Chat.find().sort({ createdAt: 1 });
     res.json(messages);
   } catch (error) {
@@ -20,13 +14,15 @@ export const getMessages = async (req, res) => {
 // Send a message
 export const sendMessage = async (req, res) => {
   try {
-    const { sender } = req.params;
+    const { senderId } = req.params; // Expecting emp_{id}
     const { text } = req.body;
 
-    if (!validateSender(sender)) return res.status(400).json({ error: "Invalid sender type" });
-    if (!text?.trim()) return res.status(400).json({ error: "Message text cannot be empty" });
+    if (!senderId.startsWith("emp_") && senderId !== "admin")
+      return res.status(400).json({ error: "Invalid sender type" });
 
-    const message = await new Chat({ sender, text }).save();
+    if (!text?.trim()) return res.status(400).json({ error: "Message cannot be empty" });
+
+    const message = await new Chat({ sender: senderId, text }).save();
 
     io.emit("receiveMessage", message);
     res.status(201).json(message);
@@ -35,11 +31,11 @@ export const sendMessage = async (req, res) => {
   }
 };
 
-// Clear all messages
+// Clear messages
 export const clearMessages = async (req, res) => {
   try {
     await Chat.deleteMany({});
-    io.emit("clearChat"); // Notify all clients to clear their chat
+    io.emit("clearChat");
     res.status(200).json({ message: "All messages cleared successfully" });
   } catch (error) {
     res.status(500).json({ error: "Error clearing messages", details: error.message });

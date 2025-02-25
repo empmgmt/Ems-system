@@ -91,7 +91,9 @@ function App() {
           <Route path="profile/:id" element={<View />} />
           <Route path="add-leave" element={<AddLeave />} />
           <Route path="view-leave/:id" element={<ViewLeave />} /> {/* Added ViewLeave route */}
-          <Route path="employee-chatbox" element={<EmpChat />} />
+          <Route path="chat/:id" element={<EmpChat />} />
+
+
         </Route>
 
         {/* Unauthorized Route (Fallback) */}

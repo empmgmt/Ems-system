@@ -3,7 +3,7 @@ import { getMessages, sendMessage, clearMessages } from "../controllers/chatCont
 
 const router = express.Router();
 
-router.route("/:sender").get(getMessages).post(sendMessage);
+router.route("/:senderId").get(getMessages).post(sendMessage);
 router.delete("/clear", clearMessages);
 
 export default router;

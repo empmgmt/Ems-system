@@ -3,6 +3,7 @@ import io from "socket.io-client";
 import axios from "axios";
 import { style3 } from "../assets/style3";
 
+ // Ensure style3.js is in assets folder
 
 const socket = io("http://localhost:5000");
 
@@ -30,9 +31,16 @@ const AdminChatBox = () => {
       setMessages((prev) => [...prev, message]);
     };
 
+    const handleClearChat = () => {
+      setMessages([]);
+    };
+
     socket.on("receiveMessage", handleReceiveMessage);
+    socket.on("clearChat", handleClearChat);
+
     return () => {
       socket.off("receiveMessage", handleReceiveMessage);
+      socket.off("clearChat", handleClearChat);
     };
   }, []);
 
@@ -53,9 +61,18 @@ const AdminChatBox = () => {
     setSending(false);
   };
 
+  // Clear chat messages
+  const clearChat = async () => {
+    try {
+      await axios.delete("http://localhost:5000/api/chat/clear");
+    } catch (error) {
+      console.error("Error clearing messages", error);
+    }
+  };
+
   return (
     <div style={style3.chatContainer}>
-     <h2 style={style3.chatTitle}>Admin Chat</h2>
+      <h2 style={style3.chatTitle}>Admin Chat</h2>
       <div style={style3.chatBox}>
         {messages.map((msg, index) => (
           <div
@@ -76,10 +93,13 @@ const AdminChatBox = () => {
         />
         <button
           onClick={sendMessage}
-          style={sending ? { ...style3.button, opacity: 0.7 } : style3.button}
+          style={{ ...style3.button, opacity: sending ? 0.7 : 1 }}
           disabled={sending}
         >
           Send
+        </button>
+        <button onClick={clearChat} style={style3.clearButton}>
+          Clear Chat
         </button>
       </div>
     </div>

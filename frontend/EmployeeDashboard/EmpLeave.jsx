@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../src/context/authContext";
 import Lottie from "lottie-react";
-import ani from "../src/assets/ani.json"
+import ani from "../src/assets/ani.json";
 
 const EmpLeave = () => {
     const { user } = useAuth();
     const [leaves, setLeaves] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
         const fetchLeaves = async () => {
@@ -17,7 +18,7 @@ const EmpLeave = () => {
                 if (!user?._id) return;
                 const token = localStorage.getItem("token");
                 if (!token) {
-                    alert("No token found. Please log in again.");
+                    setError("No token found. Please log in again.");
                     return;
                 }
 
@@ -38,19 +39,29 @@ const EmpLeave = () => {
             }
         };
 
-        fetchLeaves();
+        if (user?._id) {
+            fetchLeaves();
+        }
     }, [user]);
+
+    // ✅ Filter leave records based on search input
+    const filteredLeaves = leaves.filter((leave) =>
+        leave.leaveType.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     return (
         <div className="p-4">
             <div className="text-center">
                 <h3 className="text-2xl font-bold">Manage Leaves</h3>
             </div>
+
             <div className="flex justify-between items-center mt-4">
                 <input
                     type="text"
                     placeholder="Search By Leave Type"
                     className="px-4 py-2 border rounded"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <Link
                     to="/employee-dashboard/add-leave"
@@ -79,8 +90,8 @@ const EmpLeave = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {leaves.length > 0 ? (
-                            leaves.map((leave, index) => (
+                        {filteredLeaves.length > 0 ? (
+                            filteredLeaves.map((leave, index) => (
                                 <tr key={leave._id} className="bg-white border-b">
                                     <td className="px-6 py-3">{index + 1}</td>
                                     <td className="px-6 py-3">{leave.leaveType}</td>
