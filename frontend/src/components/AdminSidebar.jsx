@@ -8,7 +8,6 @@ import {
   FaSatellite,
   FaFileAlt, 
   FaUser
-  
 } from 'react-icons/fa';
 import { IoSettingsSharp } from "react-icons/io5";
 import { LuMessageSquareMore } from "react-icons/lu";
@@ -26,9 +25,7 @@ const AdminSidebar = () => {
         <NavLink
           to="/admin-dashboard/departments"
           className={({ isActive }) =>
-            `flex items-center space-x-4 block py-2.5 px-4 rounded ${
-              isActive ? activeClassName : ""
-            }`
+            `flex items-center space-x-4 block py-2.5 px-4 rounded ${isActive ? activeClassName : "hover:bg-gray-700"}`
           }
           end
         >
@@ -39,9 +36,7 @@ const AdminSidebar = () => {
         <NavLink
           to="/admin-dashboard/Departmentlist"
           className={({ isActive }) =>
-            `flex items-center space-x-4 block py-2.5 px-4 rounded ${
-              isActive ? activeClassName : ""
-            }`
+            `flex items-center space-x-4 block py-2.5 px-4 rounded ${isActive ? activeClassName : "hover:bg-gray-700"}`
           }
         >
           <FaBuilding />
@@ -51,9 +46,7 @@ const AdminSidebar = () => {
         <NavLink
           to="/admin-dashboard/List"
           className={({ isActive }) =>
-            `flex items-center space-x-4 block py-2.5 px-4 rounded ${
-              isActive ? activeClassName : ""
-            }`
+            `flex items-center space-x-4 block py-2.5 px-4 rounded ${isActive ? activeClassName : "hover:bg-gray-700"}`
           }
         >
           <FaUsers />
@@ -61,11 +54,9 @@ const AdminSidebar = () => {
         </NavLink>
 
         <NavLink
-        to="/admin-dashboard/Leave"
+          to="/admin-dashboard/Leave"
           className={({ isActive }) =>
-            `flex items-center space-x-4 block py-2.5 px-4 rounded ${
-              isActive ? activeClassName : ""
-            }`
+            `flex items-center space-x-4 block py-2.5 px-4 rounded ${isActive ? activeClassName : "hover:bg-gray-700"}`
           }
         >
           <FaBuilding />
@@ -75,46 +66,37 @@ const AdminSidebar = () => {
         <NavLink
           to="/admin-dashboard/Salary"
           className={({ isActive }) =>
-            `flex items-center space-x-4 block py-2.5 px-4 rounded ${
-              isActive ? activeClassName : ""
-            }`
+            `flex items-center space-x-4 block py-2.5 px-4 rounded ${isActive ? activeClassName : "hover:bg-gray-700"}`
           }
         >
           <FaMoneyBillWave />
           <span>Salary</span>
         </NavLink>
 
-      
         <NavLink
-  to="/admin-dashboard/attendance" 
-  className={({ isActive }) =>
-  `flex items-center space-x-4 block py-2.5 px-4 rounded ${
-    isActive ? activeClassName : ""
-    }`
-  }
->
-  <FaUser className="text-xl" /> {/* ✅ Added proper styling */}
-  <span>Attendance</span>
-</NavLink>
+          to="/admin-dashboard/attendance"
+          className={({ isActive }) =>
+            `flex items-center space-x-4 block py-2.5 px-4 rounded ${isActive ? activeClassName : "hover:bg-gray-700"}`
+          }
+        >
+          <FaUser className="text-xl" />
+          <span>Attendance</span>
+        </NavLink>
 
-<NavLink
-  to="/admin-dashboard/AttendanceReport" 
-  className={({ isActive }) =>
-  `flex items-center space-x-4 block py-2.5 px-4 rounded ${
-    isActive ? activeClassName : ""
-    }`
-  }
->
-  <FaFileAlt className="text-xl" /> {/* ✅ Added proper styling */}
-  <span>Attendance Report</span>
-</NavLink>
+        <NavLink
+          to="/admin-dashboard/AttendanceReport"
+          className={({ isActive }) =>
+            `flex items-center space-x-4 block py-2.5 px-4 rounded ${isActive ? activeClassName : "hover:bg-gray-700"}`
+          }
+        >
+          <FaFileAlt className="text-xl" />
+          <span>Attendance Report</span>
+        </NavLink>
 
         <NavLink
           to="/admin-dashboard/setting"
           className={({ isActive }) =>
-            `flex items-center space-x-4 block py-2.5 px-4 rounded ${
-              isActive ? activeClassName : ""
-            }`
+            `flex items-center space-x-4 block py-2.5 px-4 rounded ${isActive ? activeClassName : "hover:bg-gray-700"}`
           }
         >
           <IoSettingsSharp />
@@ -124,15 +106,12 @@ const AdminSidebar = () => {
         <NavLink
           to="/admin-dashboard/adminchatbox"
           className={({ isActive }) =>
-            `flex items-center space-x-4 block py-2.5 px-4 rounded ${
-              isActive ? activeClassName : ""
-            }`
+            `flex items-center space-x-4 block py-2.5 px-4 rounded ${isActive ? activeClassName : "hover:bg-gray-700"}`
           }
         >
           <LuMessageSquareMore />
           <span>Chat box</span>
         </NavLink>
-
       </div>
     </div>
   );

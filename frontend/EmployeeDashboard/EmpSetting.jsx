@@ -15,8 +15,7 @@ const EmpSetting = () => {
   const [error, setError] = useState(null);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setSetting({ ...setting, [name]: value });
+    setSetting({ ...setting, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -34,7 +33,7 @@ const EmpSetting = () => {
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
         }
       );
@@ -51,50 +50,53 @@ const EmpSetting = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-        <h2 className="text-xl font-semibold text-center mb-4">Change Password</h2>
-        {error && <p className="text-red-500 text-center">{error}</p>}
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700">Old Password</label>
-            <input
-              type="password"
-              name="oldPassword"
-              value={setting.oldPassword}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-            />
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
+      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-lg">
+        <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">
+          Change Password
+        </h2>
+
+        {error && (
+          <p className="text-red-500 bg-red-100 border border-red-400 p-3 rounded-md text-center mb-4">
+            {error}
+          </p>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {["Old Password", "New Password", "Confirm New Password"].map(
+            (label, index) => {
+              const name =
+                label === "Old Password"
+                  ? "oldPassword"
+                  : label === "New Password"
+                  ? "newPassword"
+                  : "confirmPassword";
+              return (
+                <div key={index}>
+                  <label className="block text-gray-700 font-medium mb-2">
+                    {label}
+                  </label>
+                  <input
+                    type="password"
+                    name={name}
+                    value={setting[name]}
+                    onChange={handleChange}
+                    required
+                    className="w-full h-14 p-4 border rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  />
+                </div>
+              );
+            }
+          )}
+
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              className="w-48 h-14 bg-teal-500 text-white text-lg rounded-lg hover:bg-teal-600 transition duration-200 shadow-md"
+            >
+              Change Password
+            </button>
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700">New Password</label>
-            <input
-              type="password"
-              name="newPassword"
-              value={setting.newPassword}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700">Confirm New Password</label>
-            <input
-              type="password"
-              name="confirmPassword"
-              value={setting.confirmPassword}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full bg-teal-500 text-white p-2 rounded-lg hover:bg-teal-600"
-          >
-            Change Password
-          </button>
         </form>
       </div>
     </div>

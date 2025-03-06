@@ -1,6 +1,6 @@
 import express from 'express';
 import authMiddleware from '../middleware/authMiddleware.js';
-import { addSalary, getSalary } from '../controllers/salarycontroller.js';
+import { addSalary, getSalary } from '../controllers/salaryController.js';
 
 const salary = express.Router();
 

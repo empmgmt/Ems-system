@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import SummaryCard from './SummaryCard';
-import { FaBuilding, FaMoneyBillWave, FaUsers, FaFileAlt, FaCheckCircle, FaHourglassHalf, FaTimesCircle } from 'react-icons/fa';
+import { FaHospitalUser , FaRupeeSign , FaUsers, FaFileAlt, FaCheckCircle, FaHourglassHalf, FaTimesCircle } from 'react-icons/fa';
 import axios from 'axios';
 import Lottie from 'lottie-react';
-import ani from "../assets/ani.json";
+import ani from '../assets/ani.json';
+import { motion } from 'framer-motion';
 
 const AdminSummary = () => {
   const [summary, setSummary] = useState(null);
@@ -12,7 +13,6 @@ const AdminSummary = () => {
   useEffect(() => {
     const fetchSummary = async () => {
       try {
-       
         const response = await axios.get("http://localhost:5000/api/dashboard/summary", {
           headers: {
             "Authorization": `Bearer ${localStorage.getItem('token')}`
@@ -41,24 +41,42 @@ const AdminSummary = () => {
   }
 
   return (
-    <div className='p-6'>
-      <h3 className='text-xl font-bold mb-6'>Dashboard Overview</h3>
-      <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
-        <SummaryCard icon={<FaUsers className="text-3xl" />} text="Total Employees" number={summary?.totalEmployees || 0} color="bg-teal-600"/>
-        <SummaryCard icon={<FaBuilding className="text-3xl" />} text="Total Departments" number={summary?.totalDepartments || 0} color="bg-yellow-600"/>
-        <SummaryCard icon={<FaMoneyBillWave className="text-3xl" />} text="Monthly Salary" number={summary?.totalSalary || 0} color="bg-red-600"/>
-      </div>
+    <motion.div 
+      initial={{ opacity: 0, y: 50 }} 
+      animate={{ opacity: 1, y: 0 }} 
+      transition={{ duration: 0.6 }}
+      className='p-6'
+    >
+      <h3 className='text-2xl font-bold text-center mb-8'>Dashboard Overview</h3>
+      <motion.div 
+        className='grid grid-cols-1 md:grid-cols-3 gap-6'
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ staggerChildren: 0.2 }}
+      >
+        <SummaryCard icon={<FaUsers className="text-3xl" />} text="Total Employees" number={summary?.totalEmployees || 0} color="bg-yellow-500"/>
+        <SummaryCard icon={<FaHospitalUser  className="text-3xl" />} text="Total Departments" number={summary?.totalDepartments || 0} color="bg-blue-500"/>
+        <SummaryCard icon={<FaRupeeSign  className="text-3xl" />} text="Monthly Salary" number={summary?.totalSalary || 0} color="bg-green-500"/>
+      </motion.div>
 
       <div className="mt-12">
         <h4 className="text-center text-xl font-bold mb-6">Leave Details</h4>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <SummaryCard icon={<FaFileAlt className="text-3xl" />} text="Leave Applied" number={summary?.leaveSummary?.appliedFor || 0} color="bg-teal-600"/>
-          <SummaryCard icon={<FaCheckCircle className="text-3xl" />} text="Leave Approved" number={summary?.leaveSummary?.approved || 0} color="bg-green-600"/>
-          <SummaryCard icon={<FaHourglassHalf className="text-3xl" />} text="Leave Pending" number={summary?.leaveSummary?.pending || 0} color="bg-yellow-600"/>
-          <SummaryCard icon={<FaTimesCircle className="text-3xl" />} text="Leave Rejected" number={summary?.leaveSummary?.rejected || 0} color="bg-red-600"/>
-        </div>
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ staggerChildren: 0.2 }}
+        >
+          <SummaryCard icon={<FaFileAlt className="text-3xl" />} text="Leave Applied" number={summary?.leaveSummary?.appliedFor || 0} color="bg-teal-500"/>
+          <SummaryCard icon={<FaCheckCircle className="text-3xl" />} text="Leave Approved" number={summary?.leaveSummary?.approved || 0} color="bg-green-500"/>
+          <SummaryCard icon={<FaHourglassHalf className="text-3xl" />} text="Leave Pending" number={summary?.leaveSummary?.pending || 0} color="bg-orange-500"/>
+          <SummaryCard icon={<FaTimesCircle className="text-3xl" />} text="Leave Rejected" number={summary?.leaveSummary?.rejected || 0} color="bg-red-500"/>
+        </motion.div>
       </div>
-    </div>
+
+
+      
+    </motion.div>
   );
 };
 
