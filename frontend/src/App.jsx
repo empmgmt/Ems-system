@@ -16,6 +16,11 @@ import Setting from "./components/department/Setting";
 import EditDepartment from "./components/department/EditDepartment";
 import View from "./components/employee/View";
 import Edit from "./components/employee/Edit";
+import EmpSalary from "../EmployeeDashboard/EmpSalary";
+import Profile from "../EmployeeDashboard/Profile";
+import AddLeave from "../EmployeeDashboard/leave/AddLeave";
+import Summary from "../EmployeeDashboard/Summary";
+import EmpLeave from "../EmployeeDashboard/EmpLeave";
 import SalaryView from "./components/employee/salaryView";
 import EmpSetting from "../EmployeeDashboard/EmpSetting";
 import ViewLeave from "../EmployeeDashboard/leave/ViewLeave";
@@ -24,8 +29,9 @@ import Attendance from "../EmployeeDashboard/Attendance/attendance";
 import AttendanceReport from "../EmployeeDashboard/Attendance/AttendanceReport";
 import AdminChatBox from "./components/AdminChatBox";
 import EmpChat from "../EmployeeDashboard/EmpChat";
-import Notification from "../EmployeeDashboard/Notification";
-import AdNotification from "./components/AdNotification";
+
+
+
 
 function App() {
   return (
@@ -34,8 +40,6 @@ function App() {
         <Route path="/" element={<Navigate to="/register" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/notifications" element={<Notification />} />
-        <Route path="/admin-notifications" element={<AdNotification />} /> {/* Fixed Route */}
 
         {/* Admin Dashboard Routes */}
         <Route
@@ -61,7 +65,7 @@ function App() {
           <Route path="salary" element={<Salary />} />
           <Route path="leave" element={<Leave />} />
           <Route path="setting" element={<EmpSetting />} />
-          <Route path="view-leave/:id" element={<ViewLeave />} />
+          <Route path="view-leave/:id" element={<ViewLeave />} /> {/* Added ViewLeave route */}
           <Route path="employees/:id/leave-history" element={<EmployeeLeaveHistory />} />
           <Route path="attendance" element={<Attendance />} />
           <Route path="attendancereport" element={<AttendanceReport />} />
@@ -79,15 +83,17 @@ function App() {
             </PrivateRoutes>
           }
         >
-          <Route index element={<AdminSummary />} />
-          <Route path="profile" element={<View />} />
+          <Route index element={<Summary />} />
+          <Route path="profile" element={<Profile />} />
           <Route path="salary/:id" element={<SalaryView />} />
-          <Route path="leaves" element={<Leave />} />
+          <Route path="leaves" element={<EmpLeave />} />
           <Route path="setting" element={<EmpSetting />} />
           <Route path="profile/:id" element={<View />} />
-          <Route path="add-leave" element={<Leave />} />
-          <Route path="view-leave/:id" element={<ViewLeave />} />
+          <Route path="add-leave" element={<AddLeave />} />
+          <Route path="view-leave/:id" element={<ViewLeave />} /> {/* Added ViewLeave route */}
           <Route path="chat/:id" element={<EmpChat />} />
+
+
         </Route>
 
         {/* Unauthorized Route (Fallback) */}
