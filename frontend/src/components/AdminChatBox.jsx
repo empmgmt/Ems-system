@@ -5,7 +5,7 @@ import { style3 } from "../assets/style3";
 
  // Ensure style3.js is in assets folder
 
-const socket = io("http://localhost:5000");
+const socket = io("https://ems-system-z6m1.onrender.com");
 
 const AdminChatBox = () => {
   const [messages, setMessages] = useState([]);
@@ -16,7 +16,7 @@ const AdminChatBox = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/chat/admin");
+        const res = await axios.get("https://ems-system-z6m1.onrender.com/api/chat/admin");
         setMessages(res.data);
       } catch (error) {
         console.error("Error fetching messages", error);
@@ -52,7 +52,7 @@ const AdminChatBox = () => {
     const message = { sender: "admin", text: input };
 
     try {
-      await axios.post("http://localhost:5000/api/chat/admin", message);
+      await axios.post("https://ems-system-z6m1.onrender.com/api/chat/admin", message);
     } catch (error) {
       console.error("Error sending message", error);
     }
@@ -64,7 +64,7 @@ const AdminChatBox = () => {
   // Clear chat messages
   const clearChat = async () => {
     try {
-      await axios.delete("http://localhost:5000/api/chat/clear");
+      await axios.delete("https://ems-system-z6m1.onrender.com/api/chat/clear");
     } catch (error) {
       console.error("Error clearing messages", error);
     }

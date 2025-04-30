@@ -133,7 +133,7 @@ const AddEmployee = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/employee/add",
+        "https://ems-system-z6m1.onrender.com/api/employee/add",
         formDataObj,
         {
           headers: {

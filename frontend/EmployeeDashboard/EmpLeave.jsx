@@ -22,7 +22,7 @@ const EmpLeave = () => {
                     return;
                 }
 
-                const response = await axios.get(`http://localhost:5000/api/leave/employee/${user._id}`, {
+                const response = await axios.get(`https://ems-system-z6m1.onrender.com/api/leave/employee/${user._id}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
 

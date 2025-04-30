@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Centralized Axios instance
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: 'https://ems-system-z6m1.onrender.com/api',
   headers: {
     "Authorization": `Bearer ${localStorage.getItem('token')}`
   }

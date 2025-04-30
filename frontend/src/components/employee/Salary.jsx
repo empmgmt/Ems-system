@@ -69,7 +69,7 @@ const Salary = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        `http://localhost:5000/api/salary/add`,
+        `https://ems-system-z6m1.onrender.com/api/salary/add`,
         salary,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },

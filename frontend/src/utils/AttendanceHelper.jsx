@@ -20,7 +20,7 @@ const AttendanceHelper = ({ initialStatus, employeeId, Statuschange }) => {
   const updateAttendance = async (newStatus) => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/attendance/update/${employeeId}`,
+        `https://ems-system-z6m1.onrender.com/api/attendance/update/${employeeId}`,
         { status: newStatus },
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );

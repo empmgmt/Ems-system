@@ -14,7 +14,7 @@ const AttendanceReport = () => {
       const query = new URLSearchParams({ date: dateFilter });
 
       const response = await axios.get(
-        `http://localhost:5000/api/attendance/report?${query.toString()}`,
+        `https://ems-system-z6m1.onrender.com/api/attendance/report?${query.toString()}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
 

@@ -22,7 +22,7 @@ const Leave = () => {
           return;
         }
 
-        const response = await axios.get("http://localhost:5000/api/leave", {
+        const response = await axios.get("https://ems-system-z6m1.onrender.com/api/leave", {
           headers: { Authorization: `Bearer ${token}` }, // Corrected string interpolation
         });
 

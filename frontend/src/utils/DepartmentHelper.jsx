@@ -14,7 +14,7 @@ export const DepartmentButtons = ({ DepId, fetchDepartments }) => {
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete this department?")) {
       try {
-        await axios.delete(`http://localhost:5000/api/department/${DepId}`, {
+        await axios.delete(`https://ems-system-z6m1.onrender.com/api/department/${DepId}`, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
         alert("Department deleted successfully!");

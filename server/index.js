@@ -23,7 +23,7 @@ const _dirname=path.resolve();
 const io = new Server(server, {
 
   cors: {
-    origin: "*",
+    origin: "https://ems-system-z6m1.onrender.com",
   },
 });
 

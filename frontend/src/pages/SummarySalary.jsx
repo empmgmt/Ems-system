@@ -14,7 +14,7 @@ const SummarySalary = () => {
   const fetchSalarySummary = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:5000/api/salary', {
+      const response = await axios.get('https://ems-system-z6m1.onrender.com/api/salary', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -37,7 +37,7 @@ const SummarySalary = () => {
     setLoading(true);
     setSelectedDept(department);
     try {
-      const response = await axios.get(`http://localhost:5000/api/salary/department/${department}`, {
+      const response = await axios.get(`https://ems-system-z6m1.onrender.com/api/salary/department/${department}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

@@ -20,7 +20,7 @@ const EmployeeLeaveHistory = ({ employeeId }) => {
         }
 
         const response = await axios.get(
-          `http://localhost:5000/api/leave/employee/${employeeId}`,
+          `https://ems-system-z6m1.onrender.com/api/leave/employee/${employeeId}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }

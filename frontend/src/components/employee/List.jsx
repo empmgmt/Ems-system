@@ -69,7 +69,7 @@ function List() {
     const fetchEmployees = async () => {
         setLoading(true);
         try {
-            const response = await axios.get('http://localhost:5000/api/employee', {
+            const response = await axios.get('https://ems-system-z6m1.onrender.com/api/employee', {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`,
                 },

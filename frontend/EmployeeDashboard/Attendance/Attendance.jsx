@@ -13,7 +13,7 @@ function Attendance() {
   const fetchAttendance = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:5000/api/attendance", {
+      const response = await axios.get("https://ems-system-z6m1.onrender.com/api/attendance", {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
 

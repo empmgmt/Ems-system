@@ -28,7 +28,7 @@ const AddLeave = () => {
         const fetchEmployee = async () => {
             try {
                 setLoading(true); // Set loading to true while fetching
-                const response = await axios.get(`http://localhost:5000/api/employee/${user._id}`, {
+                const response = await axios.get(`https://ems-system-z6m1.onrender.com/api/employee/${user._id}`, {
                     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
                 });
                 if (response.data.success) {
@@ -75,7 +75,7 @@ const AddLeave = () => {
         try {
             setLoading(true); // Set loading to true while submitting
             const response = await axios.post(
-                "http://localhost:5000/api/leave/add", // Ensure this matches your backend route
+                "https://ems-system-z6m1.onrender.com/api/leave/add", // Ensure this matches your backend route
                 leaveData,
                 {
                     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },

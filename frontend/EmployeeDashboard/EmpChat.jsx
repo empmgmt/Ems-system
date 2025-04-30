@@ -4,7 +4,7 @@ import axios from "axios";
 import { style3 } from "../src/assets/style3";
 import { useParams } from "react-router-dom"; // Get employee ID from URL params
 
-const socket = io("http://localhost:5000");
+const socket = io("https://ems-system-z6m1.onrender.com");
 
 const EmpChat = () => {
   const { id } = useParams(); // Get empId from URL
@@ -20,7 +20,7 @@ const EmpChat = () => {
     useEffect(() => {
       const fetchProfile = async () => {
         try {
-          const res = await axios.get(`http://localhost:5000/api/employee/${id}`, {
+          const res = await axios.get(`https://ems-system-z6m1.onrender.com/api/employee/${id}`, {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
           });
           if (res.data.success) {
@@ -45,7 +45,7 @@ const EmpChat = () => {
 
     const fetchMessages = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/chat/${empId}`);
+        const res = await axios.get(`https://ems-system-z6m1.onrender.com/api/chat/${empId}`);
         setMessages(res.data);
       } catch (error) {
         console.error("Error fetching messages", error);
@@ -72,7 +72,7 @@ const EmpChat = () => {
     const message = { sender: EmployeeId, text: input };
 
     try {
-      await axios.post(`http://localhost:5000/api/chat/${EmployeeId}`, message);
+      await axios.post(`https://ems-system-z6m1.onrender.com/api/chat/${EmployeeId}`, message);
     } catch (error) {
       console.error("Error sending message", error);
     }
