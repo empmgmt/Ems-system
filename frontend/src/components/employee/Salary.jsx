@@ -91,12 +91,12 @@ const Salary = () => {
   return (
     <div className="p-5">
       <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Add New Salary</h2>
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Add New Salary</h2>
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 gap-4">
             {/* Department Selection */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Department</label>
+              <label className="block text-lg font-bold text-gray-700 mb-1">Department</label>
               <select
                 name="department"
                 onChange={handleDepartment}
@@ -115,7 +115,7 @@ const Salary = () => {
 
             {/* Employee Selection */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Employee</label>
+              <label className="block text-lg font-bold text-gray-700 mb-1">Employee</label>
               <select
                 name="employeeId"
                 onChange={handleChange}
@@ -134,7 +134,7 @@ const Salary = () => {
 
             {/* Basic Salary */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Basic Salary</label>
+              <label className="block text-lg font-bold text-gray-700 mb-1">Basic Salary</label>
               <input
                 type="number"
                 name="basicSalary"
@@ -148,7 +148,7 @@ const Salary = () => {
 
             {/* Allowances */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Allowances</label>
+              <label className="block text-lg font-bold text-gray-700 mb-1">Allowances</label>
               <input
                 type="number"
                 name="allowances"
@@ -161,7 +161,7 @@ const Salary = () => {
 
             {/* Deductions */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Deductions</label>
+              <label className="block text-lg font-bold text-gray-700 mb-1">Deductions</label>
               <input
                 type="number"
                 name="deductions"
@@ -174,7 +174,7 @@ const Salary = () => {
 
             {/* Pay Date */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Pay Date</label>
+              <label className="block text-lg font-bold text-gray-700 mb-1">Pay Date</label>
               <input
                 type="date"
                 name="payDate"

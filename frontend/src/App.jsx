@@ -21,15 +21,15 @@ import Profile from "../EmployeeDashboard/Profile";
 import AddLeave from "../EmployeeDashboard/leave/AddLeave";
 import Summary from "../EmployeeDashboard/Summary";
 import EmpLeave from "../EmployeeDashboard/EmpLeave";
-import SalaryView from "./components/employee/salaryView";
+import SalaryView from "./components/employee/SalaryView";
 import EmpSetting from "../EmployeeDashboard/EmpSetting";
 import ViewLeave from "../EmployeeDashboard/leave/ViewLeave";
 import EmployeeLeaveHistory from "./components/employee/EmployeeLeaveHistory";
-import Attendance from "../EmployeeDashboard/Attendance/attendance";
 import AttendanceReport from "../EmployeeDashboard/Attendance/AttendanceReport";
 import AdminChatBox from "./components/AdminChatBox";
 import EmpChat from "../EmployeeDashboard/EmpChat";
-
+import SummarySalary from "./pages/SummarySalary";
+import Attendance from "../EmployeeDashboard/Attendance/Attendance";
 
 
 
@@ -37,7 +37,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/register" />} />
+        <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
@@ -65,11 +65,14 @@ function App() {
           <Route path="salary" element={<Salary />} />
           <Route path="leave" element={<Leave />} />
           <Route path="setting" element={<EmpSetting />} />
-          <Route path="view-leave/:id" element={<ViewLeave />} /> {/* Added ViewLeave route */}
+          <Route path="view-leave/:id" element={<ViewLeave />} />
           <Route path="employees/:id/leave-history" element={<EmployeeLeaveHistory />} />
           <Route path="attendance" element={<Attendance />} />
           <Route path="attendancereport" element={<AttendanceReport />} />
           <Route path="adminchatbox" element={<AdminChatBox />} />
+          
+          {/* This route should be inside AdminDashboard layout */}
+          <Route path="summarysalary" element={<SummarySalary />} />
         </Route>
 
         {/* Employee Dashboard Routes */}
@@ -90,10 +93,8 @@ function App() {
           <Route path="setting" element={<EmpSetting />} />
           <Route path="profile/:id" element={<View />} />
           <Route path="add-leave" element={<AddLeave />} />
-          <Route path="view-leave/:id" element={<ViewLeave />} /> {/* Added ViewLeave route */}
+          <Route path="view-leave/:id" element={<ViewLeave />} />
           <Route path="chat/:id" element={<EmpChat />} />
-
-
         </Route>
 
         {/* Unauthorized Route (Fallback) */}
@@ -102,5 +103,6 @@ function App() {
     </BrowserRouter>
   );
 }
+
 
 export default App;

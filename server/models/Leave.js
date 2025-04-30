@@ -2,6 +2,18 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const LeaveSchema = new Schema({
+    EmpID: {
+        type: String,
+        required: true,
+    },
+    name: {
+        type: String,
+        required: true,
+    },
+    Department: {
+        type: String,
+        required: true,
+    },
     employeeId: {
         type: Schema.Types.ObjectId,
         ref: "Employee",

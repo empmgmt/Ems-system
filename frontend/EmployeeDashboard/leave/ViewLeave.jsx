@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
@@ -59,43 +60,40 @@ const ViewLeave = () => {
       <h2 className="text-2xl font-bold mb-8 text-center">Leave Details</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <img
-            src={`http://localhost:5000/${leave.userId?.profileImage || "default.png"}`}
-            alt="Profile"
-            className="rounded-full border w-72"
-          />
+         
         </div>
 
         <div>
-          <div className="flex space-x-3 mb-5">
-            <p className="text-lg font-bold">Name:</p>
-            <p className="font-medium">{leave.userId?.name || "N/A"}</p>
+        <div className="flex space-x-3 mb-5">
+            <p className="text-xl font-bold">Name:</p>
+            <p className="font-medium text-xl text-xl">{leave.name || "N/A"}</p>
           </div>
           <div className="flex space-x-3 mb-5">
-            <p className="text-lg font-bold">Employee ID:</p>
-            <p className="font-medium">{leave.userId?.employeeId || "N/A"}</p>
+            <p className="text-xl font-bold">Employee ID:</p>
+            <p className="font-medium text-xl text-xl">{leave.EmpID || "N/A"}</p>
+          </div>
+          <div className="flex space-x-3 mb-5">
+            <p className="text-xl font-bold">Department:</p>
+            <p className="font-medium text-xl text-xl">{leave.Department || "N/A"}</p>
           </div>
           <div className="flex space-x-3 mb-5">
             <p className="text-lg font-bold">Leave Type:</p>
-            <p className="font-medium">{leave.leaveType || "N/A"}</p>
+            <p className="font-medium text-xl text-xl">{leave.leaveType || "N/A"}</p>
           </div>
           <div className="flex space-x-3 mb-5">
             <p className="text-lg font-bold">Reason:</p>
-            <p className="font-medium">{leave.reason || "N/A"}</p>
+            <p className="font-medium text-xl">{leave.reason || "N/A"}</p>
           </div>
-          <div className="flex space-x-3 mb-5">
-            <p className="text-lg font-bold">Department:</p>
-            <p className="font-medium">{leave.department?.name || "N/A"}</p>
-          </div>
+          
           <div className="flex space-x-3 mb-5">
             <p className="text-lg font-bold">Start Date:</p>
-            <p className="font-medium">
+            <p className="font-medium text-xl">
               {leave.startDate ? new Date(leave.startDate).toLocaleDateString() : "N/A"}
             </p>
           </div>
           <div className="flex space-x-3 mb-5">
             <p className="text-lg font-bold">End Date:</p>
-            <p className="font-medium">
+            <p className="font-medium text-xl">
               {leave.endDate ? new Date(leave.endDate).toLocaleDateString() : "N/A"}
             </p>
           </div>
@@ -118,7 +116,7 @@ const ViewLeave = () => {
                 </button>
               </div>
             ) : (
-              <p className="font-medium">{leave.status || "N/A"}</p>
+              <p className="font-medium text-xl">{leave.status || "N/A"}</p>
             )}
           </div>
 

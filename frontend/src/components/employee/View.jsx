@@ -28,62 +28,65 @@ const View = () => {
   }, [id]);
 
   if (loading) {
-    return <div className="text-center mt-10">Loading...</div>;
+    return <div className="text-center mt-10 text-xl">Loading...</div>; {/* Increased font size here */}
   }
 
   if (!employee) {
-    return <div className="text-center mt-10 text-red-500">Employee not found.</div>;
+    return <div className="text-center mt-10 text-red-500 text-xl">Employee not found.</div>; {/* Increased font size here */}
   }
 
   return (
     <div className="max-w-3xl mx-auto mt-10 bg-white p-8 rounded-md shadow-md">
-      <h2 className="text-2xl font-bold mb-8 text-center">Employee Details</h2>
+      <h2 className="text-3xl font-bold mb-8 text-center">Employee Details</h2> {/* Increased font size here */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Employee Profile Image */}
         <div>
-          <img
-            src={`http://localhost:5000/${employee.userId?.profileImage || "default.png"}`}
-            alt="Profile"
-            className="rounded-full border w-72"
-          />
+          {/* No image section as per previous code */}
         </div>
 
         {/* Employee Details */}
         <div>
           <div className="flex space-x-3 mb-5">
-            <p className="text-lg font-bold">Name:</p>
-            <p className="font-medium">{employee.userId?.name || "N/A"}</p>
+            <p className="text-xl font-bold">Name:</p> {/* Increased font size here */}
+            <p className="font-medium text-xl">{employee.userId?.name || "N/A"}</p> {/* Increased font size here */}
           </div>
           <div className="flex space-x-3 mb-5">
-            <p className="text-lg font-bold">Employee ID:</p>
-            <p className="font-medium">{employee.employeeId || "N/A"}</p>
+            <p className="text-xl font-bold">Employee ID:</p> {/* Increased font size here */}
+            <p className="font-medium text-xl">{employee.employeeId || "N/A"}</p> {/* Increased font size here */}
           </div>
           <div className="flex space-x-3 mb-5">
-            <p className="text-lg font-bold">Date of Birth:</p>
-            <p className="font-medium">
+            <p className="text-xl font-bold">Date of Birth:</p> {/* Increased font size here */}
+            <p className="font-medium text-xl">
               {employee.dob ? new Date(employee.dob).toLocaleDateString() : "N/A"}
             </p>
           </div>
           <div className="flex space-x-3 mb-5">
-            <p className="text-lg font-bold">Gender:</p>
-            <p className="font-medium">{employee.gender || "N/A"}</p>
+            <p className="text-xl font-bold">Gender:</p> {/* Increased font size here */}
+            <p className="font-medium text-xl">{employee.gender || "N/A"}</p> {/* Increased font size here */}
           </div>
           <div className="flex space-x-3 mb-5">
-            <p className="text-lg font-bold">Department:</p>
-            <p className="font-medium">{employee.department?.name || "N/A"}</p>
+            <p className="text-xl font-bold">Department:</p> {/* Increased font size here */}
+            <p className="font-medium text-xl">{employee.department?.dep_name || "N/A"}</p> {/* Increased font size here */}
           </div>
           <div className="flex space-x-3 mb-5">
-            <p className="text-lg font-bold">Designation:</p>
-            <p className="font-medium">{employee.designation || "N/A"}</p>
+            <p className="text-xl font-bold">Designation:</p> {/* Increased font size here */}
+            <p className="font-medium text-xl">{employee.designation || "N/A"}</p> {/* Increased font size here */}
           </div>
           <div className="flex space-x-3 mb-5">
-            <p className="text-lg font-bold">Marital Status:</p>
-            <p className="font-medium">{employee.maritalStatus || "N/A"}</p>
+            <p className="text-xl font-bold">Marital Status:</p> {/* Increased font size here */}
+            <p className="font-medium text-xl">{employee.maritalStatus || "N/A"}</p> {/* Increased font size here */}
           </div>
           <div className="flex space-x-3 mb-5">
-            <p className="text-lg font-bold">Salary:</p>
-            <p className="font-medium">{employee.salary ? `$${employee.salary}` : "N/A"}</p>
+            <p className="text-xl font-bold">Salary:</p> {/* Increased font size here */}
+            <p className="font-medium text-xl">{employee.salary ? `$${employee.salary}` : "N/A"}</p> {/* Increased font size here */}
           </div>
+
+          {/* Contact Details */}
+          <div className="flex space-x-3 mb-5">
+            <p className="text-xl font-bold">Contact Number:</p> {/* Increased font size here */}
+            <p className="font-medium text-xl">{employee.contactNumber || "N/A"}</p> {/* Increased font size here */}
+          </div>
+
           <button
             type="button"
             onClick={() => navigate(-1)}

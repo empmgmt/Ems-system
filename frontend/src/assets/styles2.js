@@ -58,7 +58,7 @@ export const styles = {
       zIndex: 1,
     },
     subtitle: {
-      fontSize: '1.2rem', // Smaller text
+      fontSize: '1.6rem', // Smaller text
       fontWeight: 'normal', // Remove bold
       marginBottom: '20px',
       zIndex: 1,

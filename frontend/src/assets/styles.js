@@ -58,9 +58,15 @@ export const styles = {
     zIndex: 1,
   },
   subtitle: {
-    fontSize: '1.3rem', // Smaller text
+    fontSize: '1.6rem', // Smaller text
     fontWeight: 'normal', // Remove bold
     marginBottom: '20px',
+    zIndex: 1,
+  },
+  subtitle2: {
+    fontSize: '2.5rem', // Smaller text
+    fontWeight: 'bold', // Remove bold
+    marginBottom: '10px',
     zIndex: 1,
   },
   

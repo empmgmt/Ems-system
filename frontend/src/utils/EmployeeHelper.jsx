@@ -1,13 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
-// Create a centralized Axios instance
+// Centralized Axios instance
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:5000/api',
-  headers: { "Authorization": `Bearer ${localStorage.getItem('token')}` },
+  headers: {
+    "Authorization": `Bearer ${localStorage.getItem('token')}`
+  }
 });
 
-// Fetch departments outside the component
+// Fetch all departments
 export const fetchDepartments = async () => {
   try {
     const response = await axiosInstance.get('/department');
@@ -21,7 +23,7 @@ export const fetchDepartments = async () => {
   }
 };
 
-// Fetch employees based on department ID
+// Fetch employees by department ID
 export const getEmployees = async (id) => {
   try {
     const response = await axiosInstance.get(`/employee/department/${id}`);
@@ -35,12 +37,31 @@ export const getEmployees = async (id) => {
   }
 };
 
-// Employee action buttons
+// Action Buttons Component
 export const EmployeeButtons = ({ ID }) => {
   const navigate = useNavigate();
 
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this employee?");
+    if (!confirmDelete) return;
+
+    try {
+      const response = await axiosInstance.delete(`/employee/${ID}`);
+      if (response.data?.success) {
+        alert("Employee deleted successfully");
+        // Refresh page or navigate to list (use reload for instant update)
+        window.location.reload(); // Alternatively: fetchEmployees again
+      } else {
+        alert("Failed to delete employee");
+      }
+    } catch (error) {
+      console.error("Error deleting employee:", error);
+      alert("Error deleting employee");
+    }
+  };
+
   return (
-    <div className="flex flex-wrap space-x-3 gap-2 overflow-auto">
+    <div className="flex flex-wrap gap-2">
       <button
         className="px-3 py-1 bg-blue-500 text-white font-bold rounded"
         onClick={() => navigate(`/admin-dashboard/employees/${ID}`)}
@@ -48,24 +69,24 @@ export const EmployeeButtons = ({ ID }) => {
         View
       </button>
       <button
-        className="px-3 py-1 bg-red-500 text-white font-bold rounded"
+        className="px-3 py-1 bg-[#f97316] text-white font-bold rounded"
         onClick={() => navigate(`/admin-dashboard/employees/Edit/${ID}`)}
       >
         Edit
       </button>
       <button
+        className="px-3 py-1 bg-red-600 text-white font-bold rounded"
+        onClick={handleDelete}
+      >
+        Delete
+      </button>
+      <button
         className="px-3 py-1 bg-yellow-500 text-white font-bold rounded"
-        onClick={() => navigate(`/admin-dashboard/employees/salary/${ID}`)}>
-      
+        onClick={() => navigate(`/admin-dashboard/employees/salary/${ID}`)}
+      >
         Salary
       </button>
-     <button
-  className="px-3 py-1 bg-green-500 text-white font-bold rounded"
-  onClick={() => navigate(`/admin-dashboard/employees/${ID}/leave-history`)}
->
-  Leave
-</button>
-
+     
     </div>
   );
 };

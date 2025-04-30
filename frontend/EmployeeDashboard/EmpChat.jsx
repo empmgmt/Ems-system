@@ -13,9 +13,34 @@ const EmpChat = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
+  const [EmployeeId, setEmployeeId] = useState(""); // Final empId from profile
+
+
+    // ✅ Fetch profile to get real employeeId
+    useEffect(() => {
+      const fetchProfile = async () => {
+        try {
+          const res = await axios.get(`http://localhost:5000/api/employee/${id}`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          });
+          if (res.data.success) {
+            console.log(res.data)
+            setEmployeeId(`emp_${res.data.employee.employeeId}`);
+
+          }
+        } catch (error) {
+          alert(error.response?.data?.error || "Error fetching employee profile");
+        }
+      };
+  
+      if (id) fetchProfile();
+    }, [id]);
+    console.log(EmployeeId)
+
+
 
   useEffect(() => {
-    console.log("Extracted Employee ID:", empId); // Debugging
+    console.log("Extracted Employee ID:", EmployeeId); // Debugging
     if (!empId) return; // Prevent fetching if empId is missing
 
     const fetchMessages = async () => {
@@ -41,13 +66,13 @@ const EmpChat = () => {
   }, []);
 
   const sendMessage = async () => {
-    if (!input.trim() || sending || !empId) return; // Prevent sending if empId is missing
+    if (!input.trim() || sending || !EmployeeId) return; // Prevent sending if EmployeeId is missing
     setSending(true);
 
-    const message = { sender: empId, text: input };
+    const message = { sender: EmployeeId, text: input };
 
     try {
-      await axios.post(`http://localhost:5000/api/chat/${empId}`, message);
+      await axios.post(`http://localhost:5000/api/chat/${EmployeeId}`, message);
     } catch (error) {
       console.error("Error sending message", error);
     }
@@ -59,12 +84,13 @@ const EmpChat = () => {
   return (
     <div style={style3.chatContainer}>
       <h2 style={style3.chatTitle}>Employee Chat</h2>
-      {empId ? (
+      {EmployeeId ? (
         <div style={style3.chatBox}>
           {messages.map((msg, index) => (
+            
             <div
               key={index}
-              style={msg.sender === empId ? style3.userMsg : style3.adminMsg}
+              style={msg.sender === EmployeeId ? style3.userMsg : style3.adminMsg}
             >
               <strong>{msg.sender}:</strong> {msg.text}
             </div>
@@ -84,7 +110,7 @@ const EmpChat = () => {
         <button
           onClick={sendMessage}
           style={sending ? { ...style3.button, opacity: 0.7 } : style3.button}
-          disabled={sending || !empId}
+          disabled={sending || !EmployeeId}
         >
           Send
         </button>

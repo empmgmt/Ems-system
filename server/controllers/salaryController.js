@@ -47,5 +47,58 @@ const getSalary = async (req, res) => {
   }
 };
 
+const getDepartmentSalarySummary = async (req, res) => {
+  try {
+    const salaries = await Salary.find().populate({
+      path: 'employeeId',
+      populate: {
+        path: 'department',
+        select: 'dep_name'
+      }
+    });
 
-export { addSalary, getSalary };
+    const summary = {};
+
+    salaries.forEach(salary => {
+      const depName = salary.employeeId?.department?.dep_name || 'Unknown';
+      const amount = salary.netSalary || 0;
+
+      if (!summary[depName]) {
+        summary[depName] = 0;
+      }
+      summary[depName] += amount;
+    });
+
+    const result = Object.entries(summary).map(([depName, total]) => ({
+      depName,
+      totalSalary: total.toFixed(2)
+    }));
+
+    return res.status(200).json({ success: true, salaries: result });
+  } catch (error) {
+    console.error("Error in getDepartmentSalarySummary:", error);
+    return res.status(500).json({ success: false, error: "Error generating salary summary" });
+  }
+};
+
+const getSalariesByDepartment = async (req, res) => {
+  try {
+    const { departmentName } = req.params;
+
+    const employees = await Employee.find().populate('department', 'dep_name');
+
+    const filteredEmployees = employees.filter(emp => emp.department?.dep_name === departmentName);
+
+    const employeeIds = filteredEmployees.map(emp => emp._id);
+
+    const salaries = await Salary.find({ employeeId: { $in: employeeIds } })
+      .populate('employeeId', 'name employeeId email');
+
+    return res.status(200).json({ success: true, salaries });
+  } catch (error) {
+    console.error("Error fetching salaries by department:", error);
+    return res.status(500).json({ success: false, error: "Error fetching employee salaries" });
+  }
+};
+
+export { addSalary, getSalary, getDepartmentSalarySummary, getSalariesByDepartment };

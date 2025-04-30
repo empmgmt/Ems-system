@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 // ✅ Add a new leave request
 const addLeave = async (req, res) => {
     try {
-        const { employeeId, leaveType, startDate, endDate, reason } = req.body;
+        const { name , EmpID, Department,  employeeId, leaveType, startDate, endDate, reason } = req.body;
 
         if (!employeeId || !leaveType || !startDate || !endDate || !reason) {
             return res.status(400).json({ success: false, error: "All fields are required" });
@@ -15,6 +15,9 @@ const addLeave = async (req, res) => {
         }
 
         const newLeave = new Leave({
+            name,
+            EmpID,
+            Department,
             employeeId,
             leaveType,
             startDate,
@@ -58,28 +61,49 @@ const getLeave = async (req, res) => {
 // ✅ Get all leave requests
 const getLeaves = async (req, res) => {
     try {
-        const leaves = await Leave.find().populate({
-            path: "employeeId",
-            populate: [{ path: "department", select: "name" }, { path: "userId", select: "name profileImage" }],
-        });
+        const leaves = await Leave.find()
+            .populate({
+                path: "employeeId",
+               
+                populate: [
+                    {
+                        path: "userId",
+                        select: "name" // Only get name from User
+                    },
+                    {
+                        path: "department",
+                        select: "dep_name" // Only get name from Department
+                    }
+                ]
+            })
+            .lean(); // Convert to plain JS object
 
-        return res.status(200).json({ success: true, leaves });
+        //console.log("DATABASE RESULT:", JSON.stringify(leaves, null, 2)); // Debug log
+
+        return res.status(200).json({ 
+            success: true, 
+            leaves 
+        });
     } catch (error) {
         console.error("Error fetching leaves:", error);
-        return res.status(500).json({ success: false, error: "Server error while fetching leaves" });
+        return res.status(500).json({ 
+            success: false, 
+            error: "Server error while fetching leaves" 
+        });
     }
 };
-
 // ✅ Get all leave requests for a specific Employee
 const getEmployeeLeaves = async (req, res) => {
     try {
         const { id } = req.params;
+        console.log("Employee ID:", id); // Debug log
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ success: false, error: "Invalid employee ID" });
         }
 
         const leaves = await Leave.find({ employeeId: id });
+        console.log("Leaves Query Result:", leaves); // Debug log
 
         if (!leaves.length) {
             return res.status(404).json({ success: false, error: "No leaves found for this employee" });

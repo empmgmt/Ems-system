@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Sidebar from '../../EmployeeDashboard/Sidebar';
 import Navbar from '../components/Navbar';
-import Summary from '../../EmployeeDashboard/Summary';
 import { Outlet } from 'react-router-dom';
 
 function EmployeeDashboard() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
-    <div className="flex">
-      <Sidebar />
-      <div className="flex-1 ml-64 bg-gray-100 h-screen">
+    <div className="flex min-h-screen bg-gray-100">
+      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      <div className={`flex-1 transition-all duration-300 ${isSidebarOpen ? 'ml-64' : 'ml-16'} min-h-screen flex flex-col`}>
         <Navbar />
-        <div className="p-6">
-          
-          <Outlet /> 
-        </div>
+        <main className="flex-1 p-6 overflow-auto">
+          <Outlet />
+        </main>
       </div>
     </div>
   );

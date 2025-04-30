@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import SummaryCard from './SummaryCard';
-import { FaHospitalUser , FaRupeeSign , FaUsers, FaFileAlt, FaCheckCircle, FaHourglassHalf, FaTimesCircle } from 'react-icons/fa';
+import { FaHospitalUser, FaRupeeSign, FaUsers, FaFileAlt, FaCheckCircle, FaHourglassHalf, FaTimesCircle } from 'react-icons/fa';
 import axios from 'axios';
 import Lottie from 'lottie-react';
 import ani from '../assets/ani.json';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom'; // Import Link instead of useNavigate
 
 const AdminSummary = () => {
   const [summary, setSummary] = useState(null);
@@ -55,8 +56,19 @@ const AdminSummary = () => {
         transition={{ staggerChildren: 0.2 }}
       >
         <SummaryCard icon={<FaUsers className="text-3xl" />} text="Total Employees" number={summary?.totalEmployees || 0} color="bg-yellow-500"/>
-        <SummaryCard icon={<FaHospitalUser  className="text-3xl" />} text="Total Departments" number={summary?.totalDepartments || 0} color="bg-blue-500"/>
-        <SummaryCard icon={<FaRupeeSign  className="text-3xl" />} text="Monthly Salary" number={summary?.totalSalary || 0} color="bg-green-500"/>
+        <SummaryCard icon={<FaHospitalUser className="text-3xl" />} text="Total Departments" number={summary?.totalDepartments || 0} color="bg-blue-500"/>
+        
+        {/* Wrap the SummaryCard with Link */}
+        <Link to="/admin-dashboard/summarysalary">
+  <SummaryCard 
+    icon={<FaRupeeSign className="text-3xl" />} 
+    text="Monthly Salary" 
+    number={summary?.totalSalary || 0} 
+    color="bg-green-500"
+    clickable
+  />
+</Link>
+
       </motion.div>
 
       <div className="mt-12">
@@ -73,9 +85,6 @@ const AdminSummary = () => {
           <SummaryCard icon={<FaTimesCircle className="text-3xl" />} text="Leave Rejected" number={summary?.leaveSummary?.rejected || 0} color="bg-red-500"/>
         </motion.div>
       </div>
-
-
-      
     </motion.div>
   );
 };

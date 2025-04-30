@@ -22,11 +22,11 @@ function Attendance() {
         const data = response.data.attendance.map((att) => ({
           sno: sno++,
           employeeId: att.employeeId?.employeeId || "N/A",
-          department: att.employeeId?.department?.name || "N/A",
+          department: att.employeeId?.department?.dep_name || "N/A",
           name: att.employeeId?.userId?.name || "N/A",
           status: att.status,
           action: (
-            <div className="flex justify-end">
+            <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: "10px" }}>
               <AttendanceHelper
                 initialStatus={att.status}
                 employeeId={att.employeeId?._id}
@@ -34,6 +34,7 @@ function Attendance() {
               />
             </div>
           ),
+          
         }));
 
         setAttendance(data);
@@ -97,7 +98,27 @@ function Attendance() {
             data={filteredAttendance}
             pagination
             highlightOnHover
-            customStyles={{ table: { style: { tableLayout: "fixed" } } }}
+            customStyles={{
+              table: {
+                style: {
+                  tableLayout: "fixed",
+                  fontSize: "1.1rem", // Larger font for table
+                  fontWeight: "600",
+                },
+              },
+              headCells: {
+                style: {
+                  fontSize: "1.2rem", // Header font
+                  fontWeight: "700",
+                },
+              },
+              cells: {
+                style: {
+                  fontSize: "1.1rem",
+                  fontWeight: "600",
+                },
+              },
+            }}
           />
         )}
       </div>

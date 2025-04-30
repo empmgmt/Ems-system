@@ -76,7 +76,7 @@ const attendanceReport = async (req, res) => {
       }
 
       result[recordDate].push({
-        employeeId: record.employeeId._id,
+        employeeId: record.employeeId.employeeId,
         employeeName: record.employeeId.userId?.name || "Unknown",
         departmentName: record.employeeId.department?.dep_name || "Unknown",
         status: record.status || "Not found",

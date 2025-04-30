@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import DataTable from "react-data-table-component";
 import { columns, LeaveButtons } from "../../utils/LeaveHelper";
-import * as XLSX from "xlsx"; // Import the xlsx library
+import * as XLSX from "xlsx";
 
 const Leave = () => {
   const [leaves, setLeaves] = useState([]);
@@ -23,12 +23,12 @@ const Leave = () => {
         }
 
         const response = await axios.get("http://localhost:5000/api/leave", {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${token}` }, // Corrected string interpolation
         });
 
         console.log("API Response:", response.data);
 
-        if (response.data.success && response.data.leaves.length > 0) {
+        if (response.data.success && Array.isArray(response.data.leaves) && response.data.leaves.length > 0) {
           const data = response.data.leaves.map((leave, index) => {
             const employee = leave.employeeId || {};
             const user = employee.userId || {};
@@ -41,10 +41,10 @@ const Leave = () => {
             return {
               _id: leave._id,
               sno: index + 1,
-              employeeId: employee.employeeId || "N/A",
-              name: user.name || "Unknown",
+              employeeId: leave.EmpID || "N/A",
+              name: leave.name || "Unknown",
               leaveType: leave.leaveType || "Not Specified",
-              department: department.name || "Unknown",
+              department: leave.Department || "Unknown",
               days: totalDays > 0 ? totalDays : "N/A",
               status: leave.status || "Pending",
               action: <LeaveButtons id={leave._id} />,
@@ -69,7 +69,6 @@ const Leave = () => {
     fetchLeaves();
   }, []);
 
-  // ✅ Filter logic
   useEffect(() => {
     let filtered = leaves;
 
@@ -86,7 +85,6 @@ const Leave = () => {
     setFilteredLeaves(filtered);
   }, [searchTerm, selectedStatus, leaves]);
 
-  // ✅ Export data to Excel
   const exportToExcel = () => {
     if (filteredLeaves.length === 0) {
       alert("No data available to export.");
@@ -113,34 +111,32 @@ const Leave = () => {
     <div className="p-6 w-full">
       {/* Title */}
       <div className="text-center mb-4">
-        <h3 className="text-2xl font-bold text-gray-800">Manage Leaves</h3>
+        <h1 className="text-2.5xl font-bold text-gray-800">Manage Leaves</h1>
       </div>
 
       {/* Search & Filters */}
       <div className="flex flex-wrap justify-between items-center gap-4 mb-4">
-        {/* Search Bar & Print Button */}
         <div className="flex items-center gap-2 w-full sm:w-1/3">
           <input
             type="text"
             placeholder="Search by Department Name"
-            className="px-4 py-2 border border-gray-300 rounded-md w-full"
+            className="px-4 py-2.5 border border-gray-300 rounded-md w-full text-lg font-medium"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <button
-            className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+            className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 text-lg font-medium"
             onClick={exportToExcel}
           >
             Print
           </button>
         </div>
 
-        {/* Filter Buttons */}
         <div className="flex flex-wrap gap-2">
           {["All", "Pending", "Approved", "Rejected"].map((status) => (
             <button
               key={status}
-              className={`px-3 py-1 rounded-md ${
+              className={`px-3.5 py-1.5 rounded-md text-lg font-medium ${
                 selectedStatus === status ? "bg-gray-800 text-white" : "bg-gray-400 text-black"
               } hover:bg-gray-700`}
               onClick={() => setSelectedStatus(status)}
@@ -153,13 +149,31 @@ const Leave = () => {
 
       {/* Table */}
       {loading ? (
-        <div className="text-center text-lg font-semibold mt-6">Loading...</div>
+        <div className="text-center text-xl font-semibold mt-6">Loading...</div>
       ) : filteredLeaves.length > 0 ? (
         <div className="mt-6 w-full">
-          <DataTable columns={columns} data={filteredLeaves} pagination />
+          <DataTable 
+            columns={columns} 
+            data={filteredLeaves} 
+            pagination
+            customStyles={{
+              headCells: {
+                style: {
+                  fontSize: '1.4rem',
+                  fontWeight: 'bold',
+                },
+              },
+              cells: {
+                style: {
+                  fontSize: '1.3rem',
+                  fontWeight: '500',
+                },
+              },
+            }}
+          />
         </div>
       ) : (
-        <div className="text-center text-lg font-semibold mt-6 text-gray-600">
+        <div className="text-center text-xl font-semibold mt-6 text-gray-600">
           No records found.
         </div>
       )}

@@ -14,12 +14,14 @@ import dashboardRouter from "./routes/dashboard.js";
 import attendanceRouter from "./routes/attendance.js";
 import registerRouter from "./routes/register.js";
 import chatRouter from "./routes/chat.js";
-
+import path from "path";
 dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
+const _dirname=path.resolve();
 const io = new Server(server, {
+
   cors: {
     origin: "*",
   },
@@ -49,6 +51,10 @@ app.use("/api/attendance", attendanceRouter);
 app.use("/api/dashboard", dashboardRouter);
 app.use("/api/register", registerRouter);
 app.use("/api/chat", chatRouter);
+app.use(express.static(path.join(_dirname,"/frontend/dist")))
+app.get('*',(_,res)=>{
+  res.sendFile(path.resolve(_dirname,"frontend","dist","index.html"))
+})
 
 // Socket.IO event handling
 io.on("connection", (socket) => {
