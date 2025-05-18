@@ -62,3 +62,13 @@
 
 ---
 
+---
+
+## 👥 Authors
+
+Made with ❤️ by:
+
+* **Akash** – [GitHub: Akash302004](https://github.com/Akash302004)
+* **Amaan** – [GitHub: Amaan5as](https://github.com/Amaan5as)
+
+---
